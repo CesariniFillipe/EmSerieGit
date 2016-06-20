@@ -40,11 +40,11 @@ public class LoginActivity extends AppCompatActivity {
                     result = "Sucesso, você está sendo redirecionado";
                     Toast.makeText(getApplicationContext(), result, Toast.LENGTH_LONG).show();
 
-                    login = data.getString(1);
                     String cod = data.getString(0);
+                    login = data.getString(1);
                     loggedUser = new User(cod, login);
 
-                    Intent jsonserie = new Intent(v.getContext(), HomeActivity.class);
+                    Intent jsonserie = new Intent(v.getContext(), JsonSeries.class);
                     startActivity(jsonserie);
                 }
             });

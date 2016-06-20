@@ -13,7 +13,7 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-        new CountDownTimer(3000, 1000) {
+        new CountDownTimer(2000, 1000) {
             public void onFinish() {
 
                 Intent startActivity = new Intent(MainActivity.this,LoginActivity.class);

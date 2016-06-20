@@ -8,6 +8,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.SharedPreferences;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
@@ -15,39 +16,37 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
+
+import com.bcc.unifal.emserie.database.DBController;
 
 public class HomeActivity extends Activity {
 
     private EditText edtUrl;
-
+    private String imag, texto;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_home);
-        edtUrl = (EditText)findViewById(R.id.editText1);
-        // Obtendo a ultima URL digitada
-        SharedPreferences preferencias = getSharedPreferences(
-                "configuracao", MODE_PRIVATE);
-        String url = preferencias.getString("url_imagem", "http://");
-        edtUrl.setText(url);
-    }
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        // Salva a URL para utiliza-la quando essa tela for re-aberta
-        SharedPreferences preferencias = getSharedPreferences(
-                "configuracao", MODE_PRIVATE);
-        SharedPreferences.Editor editor = preferencias.edit();
-        editor.putString("url_imagem", edtUrl.getText().toString());
-        editor.commit();
-    }
 
-    public void baixarImagemClick(View v){
+        DBController db = new DBController(getBaseContext());
+        Cursor series = db.getAllSeries();
+
+        series.moveToFirst();
+        for(int i = 0; i < 3; i++){
+            Serie s = new Serie(series.getString(0), series.getString(1), series.getString(2),
+                    series.getString(3), series.getString(4));
+            imag = s.getImg();
+            texto = s.getTitulo();
+            series.moveToNext();
+        }
+
         new DownloadImagemAsyncTask().execute(
-                edtUrl.getText().toString());
+                imag.toString());
     }
+
 
 
     class DownloadImagemAsyncTask extends
@@ -92,6 +91,8 @@ public class HomeActivity extends Activity {
             if (result != null){
                 ImageView img = (ImageView)findViewById(R.id.imageView1);
                 img.setImageBitmap(result);
+                TextView txt = (TextView)findViewById(R.id.textView);
+                txt.setText(texto);
             } else {
                 AlertDialog.Builder builder =
                         new AlertDialog.Builder(HomeActivity.this).
