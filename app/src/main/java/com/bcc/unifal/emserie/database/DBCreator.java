@@ -10,13 +10,13 @@ import com.bcc.unifal.emserie.User;
 public class DBCreator extends SQLiteOpenHelper {
     public static final String DATABASE_NAME = "a14006";
     public static final int VERSAO = 1;
-   /* public static final String sqlSerie = "CREATE TABLE "+ Serie.TABLE+"("
+    public static final String sqlSerie = "CREATE TABLE "+ Serie.TABLE+"("
             + Serie.COD + " integer primary key autoincrement,"
             + Serie.COD_CANAL + " text,"
             + Serie.TITULO + " text,"
             + Serie.ANOLANCAMENTO + " text,"
-            + Serie.IMAGEM + " text;";*
-*/
+            + Serie.IMAGEM+ " text);";
+
     public DBCreator(Context context){
         super(context,DATABASE_NAME, null, VERSAO);
     }
@@ -29,14 +29,16 @@ public class DBCreator extends SQLiteOpenHelper {
                 + User.SENHA + " text);";
 
         db.execSQL(sql);
-        //db.execSQL(sqlSerie);
+        db.execSQL(sqlSerie);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        db.execSQL("DROP TABLE IF EXISTS" + User.TABLE);
+        //db.execSQL("DROP TABLE IF EXISTS" + User.TABLE);
+        //db.execSQL("DROP TABLE IF EXISTS" + Serie.TABLE);
         onCreate(db);
     }
+
 
 }
 
