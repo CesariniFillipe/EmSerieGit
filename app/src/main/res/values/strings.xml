@@ -1,0 +1,19 @@
+<resources>
+    <string name="app_name">"EmSerie"</string>
+    <string name="title_activity_login">Login</string>
+
+    <string name="login">"Login"</string>
+    <string name="login_field_hint">"Login"</string>
+    <string name="password">"Senha"</string>
+    <string name="password_field_hint">"Senha"</string>
+    <string name="confirm_password_field_hint">"Confirme a senha"</string>
+    <string name="login_button">"Login"</string>
+    <string name="register_button">"Registro"</string>
+    <string name="registerBtn">Criar conta</string>
+    <string name="forgotBtn">"Esqueci minha senha"</string>
+
+    <string name="register">"Ainda não é registrado?"</string>
+    <string name="send_button">"Enviar"</string>
+    <color name="bg_color">#ffffff</color>
+    <string name="cod">COD</string>
+</resources>

@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context=".LoginActivity"
+    android:background="@color/colorBackground">
+    <!--Email Input-->
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:textColor="@color/bg_color"
+        android:ems="10"
+        android:id="@+id/emailLoginEditText"
+        android:layout_marginTop="80dp"
+        android:hint="@string/login_field_hint"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
+    <!--Password Input-->
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPassword"
+        android:textColor="@color/bg_color"
+        android:ems="10"
+        android:id="@+id/passwordLoginEditText"
+        android:layout_marginTop="25dp"
+        android:password="true"
+        android:hint="@string/password_field_hint"
+        android:layout_below="@+id/emailLoginEditText"
+        android:layout_alignLeft="@+id/emailLoginEditText"
+        android:layout_alignStart="@+id/emailLoginEditText" />
+    <!--Login Button-->
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/login_button"
+        android:textColor="@color/bg_color"
+        android:id="@+id/sendLoginButton"
+        android:layout_below="@+id/passwordLoginEditText"
+        android:layout_marginTop="40dp"
+        android:layout_alignRight="@+id/passwordLoginEditText"
+        android:layout_alignEnd="@+id/passwordLoginEditText"
+        android:layout_alignLeft="@+id/passwordLoginEditText"
+        android:layout_alignStart="@+id/passwordLoginEditText"/>
+    <!--RegisterActivity Link-->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/bg_color"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="@string/register"
+        android:id="@+id/registerText"
+        android:layout_marginTop="30dp"
+        android:layout_below="@+id/sendLoginButton"
+        android:layout_centerHorizontal="true"
+        android:onClick="openRegister"/>
+
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/bg_color"
+        android:text="@string/registerBtn"
+        android:id="@+id/signinButton"
+        android:layout_below="@+id/registerText"
+        android:layout_centerHorizontal="true"
+        android:onClick="openRegister" />
+
+
+</RelativeLayout>
