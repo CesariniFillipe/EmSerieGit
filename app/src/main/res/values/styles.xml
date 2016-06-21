@@ -10,6 +10,7 @@
         <item name="android:textColorSecondary">@color/colorHint</item>
         <item name="android:colorButtonNormal">@color/buttonColor</item>
         <item name="android:statusBarColor">@color/colorPrimaryDark</item>
+        <item name="android:textColorAlertDialogListItem">@color/bg_color</item>
     </style>
 
 </resources>

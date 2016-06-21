@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
+import com.bcc.unifal.emserie.MinhaSerie;
 import com.bcc.unifal.emserie.Serie;
 import com.bcc.unifal.emserie.User;
 
@@ -76,6 +77,56 @@ public class DBController {
         }
         else
             return "Login já existe!";
+    }
+
+    public String insereSerie(String cod_usuario, String cod_serie) throws IOException {
+        Cursor cursor;
+        String[] fields = {MinhaSerie.COD_USUARIO};
+        String where = MinhaSerie.COD_USUARIO + " LIKE \"" + cod_usuario + "\"";
+        long result;
+
+        db = creator.getReadableDatabase();
+        cursor = db.query(MinhaSerie.TABLE, fields, where, null, null, null, null, null);
+
+        if (!(cursor.getCount() > 0)) {
+            ContentValues values;
+
+            db = creator.getWritableDatabase();
+            values = new ContentValues();
+            values.put(MinhaSerie.COD_USUARIO, cod_usuario);
+            values.put(MinhaSerie.COD_SERIE, cod_serie);
+
+            result = db.insert(User.TABLE, null, values);
+            db.close();
+            if (result == -1)
+                return "Erro nº" + result;
+            else {
+                URL url = new URL("http://emserie.esy.es/insereminhaserie.php");
+                HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
+                httpURLConnection.setRequestMethod("POST");
+                httpURLConnection.setDoOutput(true);
+
+                OutputStream outputStream = httpURLConnection.getOutputStream();
+                BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream, "UTF-8"));
+
+                String data = URLEncoder.encode("cod_usuario", "UTF-8") + "=" + URLEncoder.encode(cod_usuario, "UTF-8") + "&" +
+                        URLEncoder.encode("cod_serie", "UTF-8") + "=" + URLEncoder.encode(cod_serie, "UTF-8");
+
+                bufferedWriter.write(data);
+                bufferedWriter.flush();
+                bufferedWriter.close();
+                outputStream.close();
+
+                InputStream inputStream = httpURLConnection.getInputStream();
+
+                inputStream.close();
+                httpURLConnection.disconnect();
+
+                return "Sucesso";
+            }
+        }
+        else
+            return "Serie já adicionada";
     }
 
     public Cursor login(String login, String senha){

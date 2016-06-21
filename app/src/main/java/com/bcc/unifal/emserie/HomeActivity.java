@@ -7,6 +7,7 @@ import java.net.URL;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.graphics.Bitmap;
@@ -22,8 +23,7 @@ import com.bcc.unifal.emserie.database.DBController;
 
 public class HomeActivity extends Activity {
 
-    private EditText edtUrl;
-    private String imag, texto;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,7 +31,8 @@ public class HomeActivity extends Activity {
         setContentView(R.layout.activity_home);
 
 
-        DBController db = new DBController(getBaseContext());
+
+        /*DBController db = new DBController(getBaseContext());
         Cursor series = db.getAllSeries();
 
         series.moveToFirst();
@@ -42,14 +43,16 @@ public class HomeActivity extends Activity {
             texto = s.getTitulo();
             series.moveToNext();
         }
+        */
+    }
 
-        new DownloadImagemAsyncTask().execute(
-                imag.toString());
+    public void openLista(View view){
+        Intent lista = new Intent(this, ListSerie.class);
+        startActivity(lista);
     }
 
 
-
-    class DownloadImagemAsyncTask extends
+    /*class DownloadImagemAsyncTask extends
             AsyncTask<String, Void, Bitmap>{
 
         ProgressDialog dialog;
@@ -102,5 +105,5 @@ public class HomeActivity extends Activity {
                 builder.create().show();
             }
         }
-    }
+    }*/
 }
