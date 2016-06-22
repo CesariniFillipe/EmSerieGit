@@ -25,6 +25,7 @@
             android:name=".LoginActivity"
             android:label="@string/title_activity_login" />
         <activity android:name=".Json.JsonSeries" />
+        <activity android:name=".Json.JsonMinhasSeries" />
         <activity android:name=".RegisterActivity" />
         <activity android:name=".HomeActivity" />
         <activity android:name=".ListSerie"></activity>

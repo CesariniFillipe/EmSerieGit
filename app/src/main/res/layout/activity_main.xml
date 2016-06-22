@@ -5,7 +5,7 @@
     android:orientation="vertical">
 
     <ImageView
-        android:id="@+id/imageView1"
+        android:id="@+id/imageSerie"
         android:layout_width="638dp"
         android:layout_height="710dp"
         android:src="@drawable/splash"

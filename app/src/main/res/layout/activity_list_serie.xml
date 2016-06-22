@@ -8,7 +8,8 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.bcc.unifal.emserie.ListSerie"
-    android:background="@color/colorBackground">
+    android:background="@color/colorBackground"
+    android:textAlignment="center">
 
     <FrameLayout
         android:layout_width="match_parent"
@@ -25,7 +26,7 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Series"
         android:textColor="@color/bg_color"
-        android:id="@+id/textView2"
+        android:id="@+id/Series"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true" />
 
@@ -36,27 +37,48 @@
         android:background="@color/bg_color"
         android:layout_alignParentStart="true"
         android:choiceMode="singleChoice"
-        android:layout_below="@+id/textView2"
+        android:layout_below="@+id/Series"
         android:layout_marginTop="30dp"
         android:layout_marginBottom="250dp" />
 
     <ImageView
-        android:id="@+id/imageView1"
+        android:id="@+id/imageSerie"
         android:layout_width="205dp"
         android:layout_height="238dp"
         android:layout_gravity="center"
         android:layout_alignParentBottom="true"
-        android:layout_alignEnd="@+id/textView2" />
+        android:layout_alignEnd="@+id/Series" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Adicionar"
-        android:id="@+id/button2"
+        android:id="@+id/Adicionar"
         android:textColor="@color/bg_color"
-        android:layout_marginTop="100dp"
-        android:layout_alignTop="@+id/imageView1"
-        android:layout_toEndOf="@+id/imageView1"
-        android:layout_marginLeft="25dp" />
+        android:layout_marginLeft="10dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignStart="@+id/nomeSerie"
+        android:layout_alignParentEnd="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/bg_color"
+        android:textAlignment="center"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:id="@+id/nomeSerie"
+        android:layout_alignTop="@+id/imageSerie"
+        android:layout_alignEnd="@+id/listaSeries"
+        android:layout_toEndOf="@+id/imageSerie" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Home"
+        android:textColor="@color/bg_color"
+        android:id="@+id/button"
+        android:layout_above="@+id/Adicionar"
+        android:layout_toEndOf="@+id/imageSerie"
+        android:onClick="openHome" />
 
 </RelativeLayout>

@@ -28,4 +28,8 @@ public class MinhaSerie {
     public void setCod_serie(String cod_serie) {
         this.cod_serie = cod_serie;
     }
+
+    public MinhaSerie(){
+
+    }
 }

@@ -96,7 +96,7 @@ public class DBController {
             values.put(MinhaSerie.COD_USUARIO, cod_usuario);
             values.put(MinhaSerie.COD_SERIE, cod_serie);
 
-            result = db.insert(User.TABLE, null, values);
+            result = db.insert(MinhaSerie.TABLE, null, values);
             db.close();
             if (result == -1)
                 return "Erro nº" + result;
@@ -151,6 +151,16 @@ public class DBController {
         return serie;
     }
 
+    public Cursor getAllMinhasSeries(){
+        Cursor minhaserie;
+        String f[] = new String[]{MinhaSerie.COD_USUARIO, MinhaSerie.COD_SERIE};
+        db = creator.getReadableDatabase();
+        minhaserie = db.query(MinhaSerie.TABLE, f, null, null, null, null, null, null);
+        minhaserie.moveToFirst();
+        db.close();
+        return minhaserie;
+    }
+
     public String setSerie(Serie s){
         Cursor cursor;
         String[] fields = {Serie.COD,Serie.COD_CANAL,Serie.TITULO,Serie.ANOLANCAMENTO,Serie.IMAGEM};
@@ -166,6 +176,25 @@ public class DBController {
         values.put(Serie.ANOLANCAMENTO, s.getAnoLancamento());
         values.put(Serie.IMAGEM, s.getImg());
         result = db.insert(Serie.TABLE, null, values);
+        db.close();
+        if (result == -1)
+            return "Erro nº" + result;
+        else
+            return "Successo";
+    }
+
+    public String setMinhaSerie(String cod_usuario, String cod_serie){
+        Cursor cursor;
+        String[] fields = {MinhaSerie.COD_USUARIO,MinhaSerie.COD_SERIE};
+        long result;
+
+        ContentValues values;
+
+        db = creator.getWritableDatabase();
+        values = new ContentValues();
+        values.put(MinhaSerie.COD_USUARIO, cod_usuario);
+        values.put(MinhaSerie.COD_SERIE, cod_serie);
+        result = db.insert(MinhaSerie.TABLE, null, values);
         db.close();
         if (result == -1)
             return "Erro nº" + result;
@@ -189,6 +218,25 @@ public class DBController {
             values.put(Serie.ANOLANCAMENTO, s.getAnoLancamento());
             values.put(Serie.IMAGEM, s.getImg());
             result = db.insert(Serie.TABLE, null, values);
+            if (result == -1)
+                return "Erro nº" + result;
+        }
+        db.close();
+        return "Successo";
+    }
+    public String setAllMinhasSeries(List<MinhaSerie> minhasseries) {
+        Cursor cursor;
+        String[] fields = {MinhaSerie.COD_USUARIO, MinhaSerie.COD_SERIE};
+        long result;
+        ContentValues values;
+
+        db = creator.getWritableDatabase();
+        db.execSQL("DELETE FROM " + MinhaSerie.TABLE);
+        values = new ContentValues();
+        for (MinhaSerie ms : minhasseries) {
+            values.put(MinhaSerie.COD_USUARIO, ms.getCod_usuario());
+            values.put(MinhaSerie.COD_SERIE, ms.getCod_serie());
+            result = db.insert(MinhaSerie.TABLE, null, values);
             if (result == -1)
                 return "Erro nº" + result;
         }

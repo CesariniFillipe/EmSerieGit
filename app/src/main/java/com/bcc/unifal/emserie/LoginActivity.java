@@ -9,12 +9,14 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.bcc.unifal.emserie.Json.JsonMinhasSeries;
 import com.bcc.unifal.emserie.Json.JsonSeries;
 import com.bcc.unifal.emserie.database.DBController;
+import com.bcc.unifal.emserie.database.SessionManager;
 
 public class LoginActivity extends AppCompatActivity {
     public static User loggedUser;
-
+    private SessionManager session;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,6 +24,16 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
         Button login = (Button) findViewById(R.id.sendLoginButton);
 
+        // Session manager
+        session = new SessionManager(getApplicationContext());
+
+        // Check if user is already logged in or not
+        if (session.isLoggedIn()) {
+            // User is already logged in. Take him to main activity
+            Intent intent = new Intent(LoginActivity.this, JsonMinhasSeries.class);
+            startActivity(intent);
+            finish();
+        }
 
         if (login != null) {
             login.setOnClickListener(new View.OnClickListener(){
@@ -36,7 +48,7 @@ public class LoginActivity extends AppCompatActivity {
                     DBController dbController = new DBController(getBaseContext());
                     data = dbController.login(login, password);
                     data.moveToFirst();
-
+                    session.setLogin(true);
                     result = "Sucesso, você está sendo redirecionado";
                     Toast.makeText(getApplicationContext(), result, Toast.LENGTH_LONG).show();
 
@@ -44,8 +56,8 @@ public class LoginActivity extends AppCompatActivity {
                     login = data.getString(1);
                     loggedUser = new User(cod, login);
 
-                    Intent jsonserie = new Intent(v.getContext(), JsonSeries.class);
-                    startActivity(jsonserie);
+                    Intent jsonminhaserie = new Intent(v.getContext(), JsonMinhasSeries.class);
+                    startActivity(jsonminhaserie);
                 }
             });
         }
