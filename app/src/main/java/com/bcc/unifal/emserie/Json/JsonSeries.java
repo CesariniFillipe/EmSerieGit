@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.util.Log;
 
 import com.bcc.unifal.emserie.HomeActivity;
+import com.bcc.unifal.emserie.ListSerie;
 import com.bcc.unifal.emserie.Serie;
 import com.bcc.unifal.emserie.database.DBController;
 
@@ -101,8 +102,8 @@ public class JsonSeries extends ListActivity {
             DBController db = new DBController(getBaseContext());
             db.setAllSeries(series);
 
-            Intent home = new Intent(JsonSeries.this, HomeActivity.class);
-            startActivity(home);
+            Intent canais = new Intent(JsonSeries.this, JsonCanais.class);
+            startActivity(canais);
 
             return series;
         }

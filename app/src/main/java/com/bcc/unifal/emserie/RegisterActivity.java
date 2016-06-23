@@ -11,10 +11,12 @@ import android.widget.Toast;
 
 import com.bcc.unifal.emserie.Json.JsonSeries;
 import com.bcc.unifal.emserie.database.DBController;
+import com.bcc.unifal.emserie.database.SessionManager;
 
 import java.io.IOException;
 
 public class RegisterActivity extends AppCompatActivity {
+    private SessionManager session;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder()
@@ -43,8 +45,10 @@ public class RegisterActivity extends AppCompatActivity {
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
-                    Intent jsonserie = new Intent(v.getContext(), JsonSeries.class);
-                    startActivity(jsonserie);
+                    result = "Sucesso!";
+                    Intent loginuser = new Intent(v.getContext(), LoginActivity.class);
+                    startActivity(loginuser);
+
                 }
                 else
                     result = "As senhas não são iguais!";
