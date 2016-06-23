@@ -4,6 +4,8 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import com.bcc.unifal.emserie.Canal;
+import com.bcc.unifal.emserie.Episodio;
 import com.bcc.unifal.emserie.MinhaSerie;
 import com.bcc.unifal.emserie.Serie;
 import com.bcc.unifal.emserie.User;
@@ -22,6 +24,17 @@ public class DBCreator extends SQLiteOpenHelper {
             + MinhaSerie.COD_USUARIO + " text,"
             + MinhaSerie.COD_SERIE + " text);";
 
+
+    public static final String sqlEpisodio = "CREATE TABLE " + Episodio.TABLE+"("
+            + Episodio.COD + " integer primary key autoincrement,"
+            + Episodio.NOME + " text,"
+            + Episodio.COD_SERIE + " text,"
+            + Episodio.COD_TEMP + " text);";
+
+    public static final String sqlCanal = "CREATE TABLE " + Canal.TABLE+"("
+            + Canal.COD + " integer primary key autoincrement,"
+            + Canal.NOME + " text);";
+
     public DBCreator(Context context){
         super(context,DATABASE_NAME, null, VERSAO);
     }
@@ -36,6 +49,8 @@ public class DBCreator extends SQLiteOpenHelper {
         db.execSQL(sql);
         db.execSQL(sqlSerie);
         db.execSQL(sqlMinhaSerie);
+        db.execSQL(sqlEpisodio);
+        db.execSQL(sqlCanal);
     }
 
     @Override

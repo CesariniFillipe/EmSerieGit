@@ -16,4 +16,5 @@
     <string name="send_button">"Enviar"</string>
     <color name="bg_color">#ffffff</color>
     <string name="cod">COD</string>
+    <string name="btn_logout">LOGOUT</string>
 </resources>

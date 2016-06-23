@@ -13,12 +13,13 @@
 
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="fill_parent"
         android:layout_alignParentTop="true"
         android:layout_alignParentStart="true"
         android:layout_above="@+id/listaSeries"
         android:layout_alignParentEnd="true"
-        android:background="#000000"></FrameLayout>
+        android:background="#000000"
+        android:id="@+id/frameLayout2"></FrameLayout>
 
     <TextView
         android:layout_width="wrap_content"
@@ -38,7 +39,7 @@
         android:layout_alignParentStart="true"
         android:choiceMode="singleChoice"
         android:layout_below="@+id/Series"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="60dp"
         android:layout_marginBottom="250dp" />
 
     <ImageView
@@ -55,10 +56,11 @@
         android:text="Adicionar"
         android:id="@+id/Adicionar"
         android:textColor="@color/bg_color"
-        android:layout_marginLeft="10dp"
-        android:layout_alignParentBottom="true"
-        android:layout_alignStart="@+id/nomeSerie"
-        android:layout_alignParentEnd="true" />
+        android:layout_marginLeft="35dp"
+        android:layout_below="@+id/frameLayout2"
+        android:layout_alignEnd="@+id/nomeSerie"
+        android:layout_toEndOf="@+id/Series"
+        android:layout_alignStart="@+id/Series" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -72,13 +74,64 @@
         android:layout_toEndOf="@+id/imageSerie" />
 
     <Button
-        android:layout_width="wrap_content"
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Home"
         android:textColor="@color/bg_color"
         android:id="@+id/button"
-        android:layout_above="@+id/Adicionar"
-        android:layout_toEndOf="@+id/imageSerie"
-        android:onClick="openHome" />
+        android:onClick="openHome"
+        android:layout_below="@+id/frameLayout2"
+        android:layout_alignStart="@+id/imageSerie"
+        android:layout_marginLeft="-5dp"
+        android:layout_toStartOf="@+id/Series"
+        android:layout_alignEnd="@+id/Series"
+        android:layout_marginRight="30dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Ano de lançamento:"
+        android:id="@+id/textView2"
+        android:layout_below="@+id/nomeSerie"
+        android:layout_alignStart="@+id/nomeSerie"
+        android:layout_marginTop="10dp"
+        android:textAlignment="center" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/ano"
+        android:textColor="@color/bg_color"
+        android:layout_alignStart="@+id/textView2"
+        android:layout_below="@+id/textView2"
+        android:layout_alignEnd="@+id/listaSeries"
+        android:layout_marginTop="10dp"
+        android:textAlignment="center" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Canal:"
+        android:id="@+id/textView3"
+        android:layout_alignParentEnd="true"
+        android:layout_below="@+id/ano"
+        android:layout_alignStart="@+id/ano"
+        android:layout_marginTop="30dp"
+        android:textAlignment="center" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/canal"
+        android:layout_alignParentEnd="true"
+        android:textColor="@color/bg_color"
+        android:layout_below="@+id/textView3"
+        android:layout_alignStart="@+id/textView3"
+        android:layout_marginTop="10dp"
+        android:textAlignment="center" />
+
 
 </RelativeLayout>

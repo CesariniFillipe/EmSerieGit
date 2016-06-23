@@ -1,16 +1,13 @@
 package com.bcc.unifal.emserie;
 
-import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -21,23 +18,20 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.bcc.unifal.emserie.Json.JsonMinhasSeries;
-import com.bcc.unifal.emserie.Json.JsonSeries;
+import com.bcc.unifal.emserie.Json.JsonEpisodios;
 import com.bcc.unifal.emserie.database.DBController;
-import com.bcc.unifal.emserie.database.SessionManager;
 
 
 public class HomeActivity extends AppCompatActivity {
-    String texto, img, cod;
+    public static String texto, img, codigoSerie, ano, can, cnl;
+    public static int numSerie;
 
-
-    String codigo_usuario = "1";
+    User u = LoginActivity.loggedUser;
+    String codigo_usuario = LoginActivity.codUsuario;
 
     @Override
     public void onBackPressed() {
@@ -60,28 +54,60 @@ public class HomeActivity extends AppCompatActivity {
                 DBController db = new DBController(getBaseContext());
                 Cursor serie = db.getAllSeries();
                 Cursor minhasseries = db.getAllMinhasSeries();
+                Cursor canal = db.getAllCanais();
 
                 minhasseries.moveToFirst();
                 for(int i = 0; i <= position; i++) {
                     MinhaSerie ms = new MinhaSerie(minhasseries.getString(0), minhasseries.getString(1));
-                    serie.moveToFirst();
-                    for (int j = 0; j < serie.getCount(); j++) {
-                        Serie s = new Serie(serie.getString(0), serie.getString(1), serie.getString(2),
-                                serie.getString(3), serie.getString(4));
-                        if(ms.getCod_serie().equals(s.getCod())&& ms.getCod_usuario().equals(codigo_usuario)){
-                            texto = s.getTitulo();
-                            img = s.getImg();
-                        }
-                        serie.moveToNext();
-                    }
+                    codigoSerie=ms.getCod_serie();
                     minhasseries.moveToNext();
+                    }
+
+
+                serie.moveToFirst();
+                for (int j = 0; j < serie.getCount(); j++) {
+                    Serie s = new Serie(serie.getString(0), serie.getString(1), serie.getString(2),
+                            serie.getString(3), serie.getString(4));
+                    if(s.getCod().equals(codigoSerie)){
+                        texto = s.getTitulo();
+                        img = s.getImg();
+                        ano = s.getAnoLancamento();
+                        can = s.getCod_canal();
+                    }
+                    serie.moveToNext();
                 }
+
+                canal.moveToFirst();
+                for(int i = 0; i < canal.getCount(); i++) {
+                    Canal c = new Canal(canal.getString(0), canal.getString(1));
+                    if(c.getCod().equals(can)){
+                        cnl=c.getNome();
+                    }
+                    canal.moveToNext();
+                }
+
                 TextView tex = (TextView) findViewById(R.id.SerieNome);
                 tex.setText(texto);
+                TextView anoL = (TextView) findViewById(R.id.ano2);
+                anoL.setText(ano);
+                TextView can = (TextView) findViewById(R.id.canal2) ;
+                can.setText(cnl);
+
                 new DownloadImagemAsyncTask().execute(
                         img.toString());
+
+                Button btn2 = (Button) findViewById(R.id.AbrirSerie);
+                btn2.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent Jsonepisodio = new Intent(HomeActivity.this, JsonEpisodios.class);
+                        startActivity(Jsonepisodio);
+                    }
+                });
             }
         });
+
+
     }
 
     private ArrayList<String> preencherMinhaSerie(){
@@ -90,7 +116,7 @@ public class HomeActivity extends AppCompatActivity {
         DBController db = new DBController(getBaseContext());
         Cursor minhasseries = db.getAllMinhasSeries();
         Cursor series = db.getAllSeries();
-
+        numSerie = minhasseries.getCount();
         minhasseries.moveToFirst();
         for(int i = 0; i < minhasseries.getCount(); i++){
             MinhaSerie ms = new MinhaSerie(minhasseries.getString(0), minhasseries.getString(1));
@@ -101,6 +127,7 @@ public class HomeActivity extends AppCompatActivity {
                 if(ms.getCod_serie().equals(s.getCod()) && ms.getCod_usuario().equals(codigo_usuario)){
                     texto = s.getTitulo();
                     data.add(texto);
+                    break;
                 }
                 series.moveToNext();
             }
@@ -108,6 +135,7 @@ public class HomeActivity extends AppCompatActivity {
         }
         return data;
     }
+
 
     public void listarSeriesClick(View v){
         Intent lista = new Intent(this, ListSerie.class);
@@ -165,5 +193,10 @@ public class HomeActivity extends AppCompatActivity {
                 builder.create().show();
             }
         }
+    }
+
+    public void UserScreenClick(View v){
+        Intent user = new Intent(this, UserScreen.class);
+        startActivity(user);
     }
 }

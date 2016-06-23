@@ -102,8 +102,8 @@ public class JsonSeries extends ListActivity {
             DBController db = new DBController(getBaseContext());
             db.setAllSeries(series);
 
-            Intent home = new Intent(JsonSeries.this, HomeActivity.class);
-            startActivity(home);
+            Intent canais = new Intent(JsonSeries.this, JsonCanais.class);
+            startActivity(canais);
 
             return series;
         }

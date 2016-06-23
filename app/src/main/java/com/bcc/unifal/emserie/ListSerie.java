@@ -2,6 +2,7 @@ package com.bcc.unifal.emserie;
 
 import android.content.Intent;
 import android.database.Cursor;
+import android.os.StrictMode;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -33,16 +34,19 @@ import java.util.ArrayList;
 
 public class ListSerie extends AppCompatActivity {
 
-    String texto, img, cod;
+    String texto, img, cod, ano, can, cnl;
 
     @Override
     public void onBackPressed() {
     }
 
-    String codigoUsuario = "1";
+    String codigoUsuario = LoginActivity.codUsuario;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder()
+                .permitAll().build();
+        StrictMode.setThreadPolicy(policy);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_serie);
 
@@ -59,6 +63,7 @@ public class ListSerie extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 DBController db = new DBController(getBaseContext());
                 Cursor serie = db.getAllSeries();
+                Cursor canal = db.getAllCanais();
 
                 serie.moveToFirst();
                 for(int i = 0; i <= position; i++){
@@ -68,11 +73,28 @@ public class ListSerie extends AppCompatActivity {
                     img=s.getImg();
                     texto=s.getTitulo();
                     cod=s.getCod();
+                    ano=s.getAnoLancamento();
+                    can=s.getCod_canal();
                 }
+                canal.moveToFirst();
+                for(int i = 0; i < canal.getCount(); i++) {
+                    Canal c = new Canal(canal.getString(0), canal.getString(1));
+                    if(c.getCod().equals(can)){
+                        cnl=c.getNome();
+                    }
+                    canal.moveToNext();
+                }
+
                 TextView tex = (TextView) findViewById(R.id.nomeSerie);
                 tex.setText(texto);
+                TextView anoL = (TextView) findViewById(R.id.ano);
+                anoL.setText(ano);
+                TextView can = (TextView) findViewById(R.id.canal) ;
+                can.setText(cnl);
+
                 new DownloadImagemAsyncTask().execute(
                         img.toString());
+
 
                 Button btn = (Button) findViewById(R.id.Adicionar);
 
@@ -91,7 +113,6 @@ public class ListSerie extends AppCompatActivity {
                             } catch (IOException e) {
                                 e.printStackTrace();
                             }
-                        result = "Serie adicionada!";
                         Toast.makeText(getApplicationContext(), result, Toast.LENGTH_LONG).show();
                     }
                 });

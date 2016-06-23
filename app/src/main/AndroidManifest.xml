@@ -7,6 +7,7 @@
     <uses-permission android:name="android.permission.READ_PROFILE" />
     <uses-permission android:name="android.permission.READ_CONTACTS" />
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -26,9 +27,13 @@
             android:label="@string/title_activity_login" />
         <activity android:name=".Json.JsonSeries" />
         <activity android:name=".Json.JsonMinhasSeries" />
+        <activity android:name=".Json.JsonEpisodios" />
+        <activity android:name=".AbrirSerie" />
         <activity android:name=".RegisterActivity" />
         <activity android:name=".HomeActivity" />
-        <activity android:name=".ListSerie"></activity>
+        <activity android:name=".ListSerie" />
+        <activity android:name=".UserScreen"></activity>
+        <activity android:name=".Json.JsonCanais"/>
     </application>
 
 </manifest>

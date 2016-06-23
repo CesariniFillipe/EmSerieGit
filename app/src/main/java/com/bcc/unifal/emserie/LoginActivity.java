@@ -17,7 +17,8 @@ import com.bcc.unifal.emserie.database.SessionManager;
 public class LoginActivity extends AppCompatActivity {
     public static User loggedUser;
     private SessionManager session;
-
+    public static String codUsuario;
+    public static String nomeUsuario;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,12 +29,12 @@ public class LoginActivity extends AppCompatActivity {
         session = new SessionManager(getApplicationContext());
 
         // Check if user is already logged in or not
-        if (session.isLoggedIn()) {
+        /*if (session.isLoggedIn()) {
             // User is already logged in. Take him to main activity
             Intent intent = new Intent(LoginActivity.this, JsonMinhasSeries.class);
             startActivity(intent);
             finish();
-        }
+        }*/
 
         if (login != null) {
             login.setOnClickListener(new View.OnClickListener(){
@@ -55,9 +56,13 @@ public class LoginActivity extends AppCompatActivity {
                     String cod = data.getString(0);
                     login = data.getString(1);
                     loggedUser = new User(cod, login);
+                    codUsuario=data.getString(0);
+                    nomeUsuario=data.getString(1);
 
                     Intent jsonminhaserie = new Intent(v.getContext(), JsonMinhasSeries.class);
                     startActivity(jsonminhaserie);
+
+
                 }
             });
         }
